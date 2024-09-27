@@ -7,7 +7,7 @@ def main():
     print(num_chars)
 
 def get_num_words(text):
-    # create list of strings from orginal string split on white space
+    # create list of strings from original string split on white space
     words = text.split()
     return len(words)
 
