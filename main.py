@@ -3,8 +3,22 @@ def main():
     text = get_book_text(book_path)
     num_words = get_num_words(text)
     num_chars = get_num_chars(text)
+    sorted_chars = []
+
+    # create new dictionary for each key pair in num_chars and add to sorted_chars
+    for char in num_chars:
+        sorted_chars.append({char: num_chars[char]})
+
+    sorted_chars.sort(reverse=True, key=sort_on)
+
+    print(f"--- Begin report of {book_path} ---")
     print(f"{num_words} words found in the document")
-    print(num_chars)
+    print("")
+    for c in sorted_chars:
+        key = list(c.keys())[0]
+        value = list(c.values())[0]
+        print(f"The {key} character was found {value} times")
+    print("--- End report ---")
 
 def get_num_words(text):
     # create list of strings from original string split on white space
@@ -21,11 +35,16 @@ def get_num_chars(text):
     for c in text:
         # lower each character with the lower method
         lowered = c.lower()
-        if lowered in num_chars:
-            num_chars[lowered] += 1
-        else:
-            # if character is not initialized as key initialize it as 1 instance
-            num_chars[lowered] = 1
+        # check if key is alphabetic character
+        if c.isalpha() == True:
+            if lowered in num_chars:
+                num_chars[lowered] += 1
+            else:
+                # if character is not initialized as key initialize it as 1 instance
+                num_chars[lowered] = 1
     return num_chars
+
+def sort_on(dict):
+    return list(dict.values())[0]
 
 main()
