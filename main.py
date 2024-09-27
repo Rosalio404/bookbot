@@ -17,13 +17,15 @@ def get_book_text(path):
         return f.read()
     
 def get_num_chars(text):
-    # make text into lower case list and create dictionary from it with initialized value of 0
-    chars = list(text.lower())
-    num_chars = dict.fromkeys(chars, 0)
-    # add up running tallies for each character
-    for char in chars:
-        num_chars[char] += 1
+    num_chars = {}
+    for c in text:
+        # lower each character with the lower method
+        lowered = c.lower()
+        if lowered in num_chars:
+            num_chars[lowered] += 1
+        else:
+            # if character is not initialized as key initialize it as 1 instance
+            num_chars[lowered] = 1
     return num_chars
-
 
 main()
